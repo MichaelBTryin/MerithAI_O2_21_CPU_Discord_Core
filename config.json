@@ -1,0 +1,134 @@
+{
+  "_comment": "Discord Voice Bot - CPU-Optimized for Surface Pro 5",
+  "_setup_instructions": "See README.md for detailed setup instructions",
+
+  "///// DISCORD SETTINGS /////": "",
+
+  "discord": { 
+    "token": "${DISCORD_TOKEN}",
+   
+    "token_source": "Set DISCORD_TOKEN in .env file",
+    "token_instructions": "Get from Discord Developer Portal: https://discord.com/developers/applications",
+    "guild_id": 839056789701656636,
+    "guild_id_comment": "Your Discord server ID",
+    "whitelist_channels": [
+      1412240284410052650
+    ],
+    "whitelist_channels_comment": "STRICT WHITELIST - Bot ONLY responds in these channels",
+    "log_channel_id": 1412240284410052650,
+    "log_channel_comment": "Channel for logging voice chat transcripts and TTS responses",
+    "command_prefix": "/",
+    "status_messages": {
+      "idle": "Listening for commands",
+      "processing_text": "Processing text...",
+      "processing_voice": "Processing voice...",
+      "listening": "Listening in voice channel"
+    }
+  },
+
+  "///// LLM SETTINGS /////": "",
+
+  "llm": {
+    "api_url": "http://localhost:1234/v1",
+    "api_url_comment": "LM Studio API endpoint",
+    "api_url_examples": [
+      "http://localhost:1234/v1 (local - default)",
+      "http://192.168.1.100:1234/v1 (remote machine)"
+    ],
+    "model_name": "mlabonne/gemma-3-1b-it-abliterated-GGUF",
+    "model_name_comment": "LM Studio model name",
+    "model_recommendations": [
+      "gemma:3-1b-it-abliterated (1.0B, ~700MB) - Recommended for Surface Pro 5 (auto-downloads)",
+      "phi:2 (2.7B, ~1.6GB) - Uncensored alternative",
+      "tinyllama (1.1B, ~800MB) - Lighter weight option",
+      "mistral (7B, ~4GB) - Better quality, needs GPU"
+    ],
+    "temperature": 0.6,
+    "max_tokens": 100,
+    "max_tokens_comment": "Max response length (keep short for voice)",
+    "system_prompt_file": "system_prompt.json",
+    "system_prompt_comment": "Load personality from separate system_prompt.json file",
+    "retry_attempts": 3,
+    "retry_delay_seconds": 1.0,
+    "timeout_seconds": 30.0
+  },
+
+  "///// SPEECH-TO-TEXT (STT) SETTINGS /////": "",
+
+  "stt": {
+    "engine": "kyutai",
+    "engine_comment": "kyutai = Kyutai STT | whisper = Whisper tiny (fallback)",
+    "fallback_engine": "whisper",
+    "whisper_model": "tiny.en",
+    "whisper_model_comment": "tiny.en = 39M params, ~150MB, CPU-friendly",
+    "language": "en",
+    "chunk_duration_seconds": 2.0,
+    "chunk_duration_comment": "Buffer audio in chunks (seconds) before transcription",
+    "silence_threshold": 0.8,
+    "silence_threshold_comment": "Threshold to detect end of speech (0.0-1.0)",
+    "min_audio_length_seconds": 0.5,
+    "min_audio_length_comment": "Minimum audio length to transcribe"
+  },
+
+  "///// TEXT-TO-SPEECH (TTS) SETTINGS /////": "",
+
+  "tts": {
+    "engine": "kyutai",
+    "engine_comment": "kyutai = Kyutai TTS | piper = Piper TTS (fallback)",
+    "fallback_engine": "piper",
+    "piper_voice": "en_US-amy-medium",
+    "piper_voice_comment": "Available voices: en_US-amy, en_US-john, en_US-male, etc.",
+    "speed": 1.0,
+    "speed_comment": "Speech speed multiplier (0.5-2.0)",
+    "noise_scale": 0.667,
+    "noise_scale_comment": "Voice variability (0.0-1.0, lower = more stable)"
+  },
+
+  "///// VOICE CHANNEL SETTINGS /////": "",
+
+  "voice": {
+    "enabled": true,
+    "auto_join": false,
+    "auto_join_comment": "Auto-join user's voice channel on startup",
+    "silence_timeout_seconds": 3.0,
+    "silence_timeout_comment": "Stop listening after N seconds of silence",
+    "max_recording_duration_seconds": 15.0,
+    "max_recording_duration_comment": "Max single recording length",
+    "vad_enabled": true,
+    "vad_enabled_comment": "Voice Activity Detection for better silence handling"
+  },
+
+  "///// PERFORMANCE & OPTIMIZATION /////": "",
+
+  "performance": {
+    "device": "cpu",
+    "device_comment": "cpu = Force CPU | auto = Use GPU if available",
+    "preload_models": true,
+    "preload_models_comment": "Load STT/TTS on startup (slower start, faster inference)",
+    "num_threads": -1,
+    "num_threads_comment": "-1 = Auto-detect available CPU threads",
+    "use_quantization": true,
+    "use_quantization_comment": "Enable quantization for models (speeds up inference)"
+  },
+
+  "///// LOGGING /////": "",
+
+  "logging": {
+    "level": "INFO",
+    "level_options": ["DEBUG", "INFO", "WARNING", "ERROR"],
+    "save_conversations": false,
+    "save_conversations_comment": "Save all conversations to logs",
+    "log_directory": "./logs"
+  },
+
+  "///// DEBUGGING /////": "",
+
+  "debug": {
+    "verbose": false,
+    "verbose_comment": "Enable debug output",
+    "log_audio_frames": false,
+    "log_audio_frames_comment": "Log raw audio processing (verbose)",
+    "simulate_mode": false,
+    "simulate_mode_comment": "Simulate responses without LLM (for testing)"
+  }
+}
